@@ -41,7 +41,6 @@ KNOT_HAL_HDR_LIB_DIR = ./$(KNOT_THING_DOWNLOAD_DIR)/$(KNOT_HAL_LIB_REPO)/include
 KNOT_HAL_SRC_LIB_DIR = ./$(KNOT_THING_DOWNLOAD_DIR)/$(KNOT_HAL_LIB_REPO)/src/hal
 
 KNOT_HAL_SRC_DRIVERS_LIB_DIR = ./$(KNOT_THING_DOWNLOAD_DIR)/$(KNOT_HAL_LIB_REPO)/src/drivers
-KNOT_HAL_SRC_NRF_LIB_DIR = ./$(KNOT_THING_DOWNLOAD_DIR)/$(KNOT_HAL_LIB_REPO)/src/nrf24l01
 KNOT_HAL_SRC_SPI_LIB_DIR = ./$(KNOT_THING_DOWNLOAD_DIR)/$(KNOT_HAL_LIB_REPO)/src/spi
 
 .PHONY: clean
@@ -88,10 +87,7 @@ $(KNOT_THING_TARGET):  $(KNOT_PROTOCOL_LIB_DIR)
 	$(FIND) ./$(KNOT_HAL_SRC_LIB_DIR)/time/ \( ! -name '*linux*' -and -name '*.cpp' \) -exec $(CP) {} ./$(KNOT_THING_NAME)/src \;
 
 	# Include comm headers and source files
-	$(FIND) ./$(KNOT_HAL_SRC_LIB_DIR)/comm/ \( \( -name '*.c' -or -name '*.h' \) -and ! -name '*serial*' \) -exec $(CP) {} ./$(KNOT_THING_NAME)/src \;
-
-	# Include nrf24l01 headers and source files
-	$(FIND) ./$(KNOT_HAL_SRC_NRF_LIB_DIR)/ \( \( -name '*.c' -or -name '*.h' \) -and ! -name '*linux*' \) -exec $(CP) {} ./$(KNOT_THING_NAME)/src \;
+	$(FIND) ./$(KNOT_HAL_SRC_LIB_DIR)/comm/ \( \( -name '*.cpp' -or -name '*.h' \) -and ! -name '*nrf*' \) -exec $(CP) {} ./$(KNOT_THING_NAME)/src \;
 
  	# Include gpio headers and source files
 	$(CP) -r ./$(KNOT_HAL_SRC_DRIVERS_LIB_DIR)/gpio/*.c ./$(KNOT_THING_NAME)/src
